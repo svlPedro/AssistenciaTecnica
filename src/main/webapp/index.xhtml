@@ -17,12 +17,11 @@
 	            	<p:autoUpdate/>
 	        	</p:messages>
 				<p:panelGrid columns="2">
-			
 					<p:outputLabel value="Descrição: "/>
 					<p:inputText value="#{arCondicionadoBean.arCondicionado.descricao}" required="true" label="Descrição" requiredMessage="O campo é Obrigatório"/>
 				
 					<p:outputLabel value="Data de Manutenção: "/>
-					<p:datePicker id="button" value="#{arCondicionadoBean.arCondicionado.descricao}" showIcon="true" showOnFocus="false" />
+					<p:datePicker id="button" value="#{arCondicionadoBean.arCondicionado.dataManutencao}" showIcon="true" showOnFocus="false" />
 					
 					<p:outputLabel value="Temperatura Mínima: "/>
 					<p:inputText value="#{arCondicionadoBean.arCondicionado.temperaturaMinima}" required="true" label="Temperatura Mínima" requiredMessage="O campo é Obrigatório"/>
@@ -31,7 +30,7 @@
 					<p:inputText value="#{arCondicionadoBean.arCondicionado.temperaturaMaxima}" required="true" label="Temperatura Máxima" requiredMessage="O campo é Obrigatório"/>
 					
 					<p:commandButton value="Salvar" action="#{arCondicionadoBean.salvar()}" update="formulario"/>
-					<p:commandButton value="Consultar Histórico" action="listagem" validate="false" process="@this"/>							
+					<p:commandButton value="Listagem" action="listagem" validate="false" process="@this"/>							
 				</p:panelGrid>		
 			</h:form>
 		</div>

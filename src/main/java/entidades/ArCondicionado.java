@@ -1,7 +1,10 @@
 package entidades;
 
+import java.time.LocalDate;
 import java.util.Date;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,8 +19,7 @@ public class ArCondicionado {
 	private Integer id;
 	@Column(nullable = false)
 	private String descricao;
-	@Temporal(TemporalType.DATE)
-	private Date dataManutencao;
+	private LocalDate dataManutencao;
 	@Column(nullable = false)
 	private Integer temperaturaAtual;
 	@Column(nullable = false)
@@ -25,6 +27,41 @@ public class ArCondicionado {
 	@Column(nullable = false)
 	private Integer temperaturaMaxima;
 
+	public void validacoes() {
+		validarData();
+		validarTemperaturaMinima();
+		validarTemperaturaMaxima();
+	}
+	
+	public LocalDate validarData() {
+		LocalDate cadastro = LocalDate.now();
+		
+		if(dataManutencao.isBefore(cadastro)) {
+			  FacesContext.getCurrentInstance().addMessage(null,
+			  new FacesMessage(FacesMessage.SEVERITY_ERROR, "A data de Manutenção deve ser superior a data de cadastro.", null));
+			  return null;
+		}
+		return dataManutencao;
+	}
+	
+	public Integer validarTemperaturaMinima() {
+		if(temperaturaMinima < 10 || temperaturaMinima > 16) {
+			  FacesContext.getCurrentInstance().addMessage(null,
+			  new FacesMessage(FacesMessage.SEVERITY_ERROR, "A temperatura Mínima deve estar entre 10 e 16", null));
+			  return null;
+		}
+		return temperaturaMinima;
+	}
+	
+	public Integer validarTemperaturaMaxima() {
+		if(temperaturaMaxima < 20 || temperaturaMaxima > 25) {
+			  FacesContext.getCurrentInstance().addMessage(null,
+			  new FacesMessage(FacesMessage.SEVERITY_ERROR, "A temperatura Máxima deve estar entre 20 e 25", null));
+			  return null;
+		}
+		return temperaturaMaxima;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -41,11 +78,11 @@ public class ArCondicionado {
 		this.descricao = descricao;
 	}
 
-	public Date getDataManutencao() {
+	public LocalDate getDataManutencao() {
 		return dataManutencao;
 	}
 
-	public void setDataManutencao(Date dataManutencao) {
+	public void setDataManutencao(LocalDate dataManutencao) {
 		this.dataManutencao = dataManutencao;
 	}
 
