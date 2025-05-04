@@ -10,6 +10,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 @Entity
 public class ArCondicionado {
+	
 	@Id
 	@GeneratedValue
 	private Integer id;
