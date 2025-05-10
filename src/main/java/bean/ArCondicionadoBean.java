@@ -32,6 +32,13 @@ public class ArCondicionadoBean {
 		return null;
 	}
 	
+	public String deletar() {
+		lista.remove(arCondicionadoSelecionado);
+	    ArCondicionadoDAO.deletar(arCondicionadoSelecionado);
+	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Id ["+arCondicionadoSelecionado.getId()+"] removido com Sucesso."));
+	    return null;
+	}	
+	
 	public void salvarEdicao(org.primefaces.event.RowEditEvent<ArCondicionado> event) {
 
 		ArCondicionado arcEditado = event.getObject();

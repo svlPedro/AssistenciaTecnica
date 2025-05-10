@@ -61,6 +61,8 @@
             	<p:toolbarGroup>
                 	<p:commandButton action="#{arCondicionadoBean.retornar()}" value="Página de Cadastro" icon="pi pi-home" styleClass="mr-2" />
                     <i class="pi pi-bars px-3"/>
+                    <p:commandButton action ="#{arCondicionadoBean.deletar()}" title="Deletar" icon="pi pi-trash" styleClass="ui-button-danger"
+                    update=":formulario:messages dt-arc"/>
             </p:toolbarGroup>
             </p:toolbar>
 		</h:form>
