@@ -1,7 +1,7 @@
 package entidades;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.format.DateTimeFormatter;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -9,8 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 @Entity
 public class ArCondicionado {
 	
@@ -29,6 +27,11 @@ public class ArCondicionado {
 
 	public void validacoes() {
 		validarData();
+		validarTemperaturaMinima();
+		validarTemperaturaMaxima();
+	}
+	
+	public void validarEdit() {
 		validarTemperaturaMinima();
 		validarTemperaturaMaxima();
 	}
@@ -60,6 +63,13 @@ public class ArCondicionado {
 			  return null;
 		}
 		return temperaturaMaxima;
+	}
+	
+	public String getDataFormatada() {
+	    if (dataManutencao == null) {
+	        return "";
+	    }
+	    return dataManutencao.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 	}
 	
 	public Integer getId() {

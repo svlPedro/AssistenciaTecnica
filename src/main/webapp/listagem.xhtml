@@ -20,16 +20,49 @@
 			<p:dataTable 
 			id="dt-arc" value="#{arCondicionadoBean.lista}" var="a" 
 			selection="#{arCondicionadoBean.arCondicionadoSelecionado}" rowKey="#{a.id}" 
-			selectionMode="single"  paginator="true" rows="10" selectionRowMode="add" paginatorPosition="bottom">
+			selectionMode="single"  paginator="true" rows="10" selectionRowMode="add" paginatorPosition="bottom"
+			editable="true" editMode="row">
+
+			<p:ajax event="rowEdit" listener="#{arCondicionadoBean.salvarEdicao}" update=":formulario:messages" /> 
+            <p:ajax event="rowEditCancel" listener="#{arCondicionadoBean.cancelarEdicao}" update=":formulario:messages" />
+
 
 				<p:column headerText="Id"><p:outputLabel value="#{a.id}"/> </p:column>
-				<p:column headerText="Descrição"><p:outputLabel value="#{a.descricao}"/> </p:column>
-				<p:column headerText="Data de Manutenção"><p:outputLabel value="#{a.dataManutencao}"/> </p:column>
+				
+				<p:column headerText="Descrição">
+					<p:cellEditor>
+        	   				<f:facet name="output"><h:outputText value="#{a.descricao}"/></f:facet>
+            				<f:facet name="input"><p:inputText value="#{a.descricao}" /></f:facet>
+        			</p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Data de Manutenção"><p:outputLabel value="#{a.getDataFormatada()}"/></p:column>
 				<p:column headerText="Temperatura Atual"><p:outputLabel value="#{a.temperaturaAtual}"/> </p:column>
-				<p:column headerText="Temperatura Minima"><p:outputLabel value="#{a.temperaturaMinima}"/> </p:column>				
-			    <p:column headerText="Temperatura Maxima"><p:outputLabel value="#{a.temperaturaMaxima}"/> </p:column>
-			    
-			</p:dataTable>
+				
+				<p:column headerText="Temperatura Minima"> 
+					<p:cellEditor>
+        	   				<f:facet name="output"><h:outputText value="#{a.temperaturaMinima}"/></f:facet>
+            				<f:facet name="input"><p:inputText value="#{a.temperaturaMinima}" /></f:facet>
+        			</p:cellEditor>
+				</p:column>				
+				
+			    <p:column headerText="Temperatura Maxima">
+			    	<p:cellEditor>
+        	   				<f:facet name="output"><h:outputText value="#{a.temperaturaMaxima}"/></f:facet>
+            				<f:facet name="input"><p:inputText value="#{a.temperaturaMaxima}" /></f:facet>
+        			</p:cellEditor>			    
+			    </p:column>
+
+				<p:column style="width:5%"><p:rowEditor /></p:column>
+				
+				        	    
+			</p:dataTable>	
+	        <p:toolbar>
+            	<p:toolbarGroup>
+                	<p:commandButton action="#{arCondicionadoBean.retornar()}" value="Página de Cadastro" icon="pi pi-home" styleClass="mr-2" />
+                    <i class="pi pi-bars px-3"/>
+            </p:toolbarGroup>
+            </p:toolbar>
 		</h:form>
 	</h:body>	
 </html>

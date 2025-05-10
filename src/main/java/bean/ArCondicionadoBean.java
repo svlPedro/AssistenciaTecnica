@@ -32,6 +32,30 @@ public class ArCondicionadoBean {
 		return null;
 	}
 	
+	public void salvarEdicao(org.primefaces.event.RowEditEvent<ArCondicionado> event) {
+
+		ArCondicionado arcEditado = event.getObject();
+		
+		arcEditado.validarEdit();
+		
+		if (FacesContext.getCurrentInstance().getMessageList().stream()
+	        .anyMatch(msg -> msg.getSeverity().equals(FacesMessage.SEVERITY_ERROR))) {
+	        FacesContext.getCurrentInstance().validationFailed(); // <- Se houver falha na validação, a edição é cancelada.
+	        return;
+	    }
+	    
+	    ArCondicionadoDAO.salvar(arcEditado);
+	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Edição realizada com sucesso!"));
+	}
+
+	public void cancelarEdicao(org.primefaces.event.RowEditEvent<ArCondicionado> event) {
+	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Edição cancelada."));
+	}
+	
+	public String retornar() {
+		return "index";
+	}
+	
 	public List<ArCondicionado> getLista() {
 		if (lista == null) {
 			lista = ArCondicionadoDAO.listarTodos();
