@@ -26,7 +26,7 @@ public class ArCondicionadoDAO {
 	
 	public static List<ArCondicionado> listarTodos() {
 		EntityManager em = JPAUtil.criarEntityManager();
-		Query q = em.createQuery("select j from Jogada j");
+		Query q = em.createQuery("select a from ArCondicionado a");
 		List<ArCondicionado> lista = q.getResultList();
 		em.close();
 		return lista;

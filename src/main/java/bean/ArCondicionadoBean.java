@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.List;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -10,6 +12,8 @@ import entidades.ArCondicionado;
 @ManagedBean
 public class ArCondicionadoBean {
 
+	private List<ArCondicionado> lista;
+	private ArCondicionado arCondicionadoSelecionado = new ArCondicionado();
 	private ArCondicionado arc = new ArCondicionado();
 	
 	public String salvar() {	
@@ -28,8 +32,35 @@ public class ArCondicionadoBean {
 		return null;
 	}
 	
+	public List<ArCondicionado> getLista() {
+		if (lista == null) {
+			lista = ArCondicionadoDAO.listarTodos();
+		}
+		return lista;
+	}
+
+	public void setLista(List<ArCondicionado> lista) {
+		this.lista = lista;
+	}
+	
 	public ArCondicionado getArCondicionado() {
 		return arc;
+	}
+
+	public ArCondicionado getArCondicionadoSelecionado() {
+		return arCondicionadoSelecionado;
+	}
+
+	public void setArCondicionadoSelecionado(ArCondicionado arCondicionadoSelecionado) {
+		this.arCondicionadoSelecionado = arCondicionadoSelecionado;
+	}
+
+	public ArCondicionado getArc() {
+		return arc;
+	}
+
+	public void setArc(ArCondicionado arc) {
+		this.arc = arc;
 	}
 
 	public void setArCondicionado(ArCondicionado arCondicionado) {
